@@ -2,3 +2,6 @@
 .idea/
 *.iml
 
+
+# Maven
+target/

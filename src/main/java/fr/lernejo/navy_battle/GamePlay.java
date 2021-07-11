@@ -1,51 +1,51 @@
 package fr.lernejo.navy_battle;
 
-import fr.lernejo.navy_battle.core.*;
+import fr.lernejo.navy_battle.prototypes.*;
 
 public class GamePlay {
-    private final Map localMap;
-    private final Map remoteMap;
-    private final Option<Status> status = new Option<>(Status.ONGOING);
+    private final GameMap localMap;
+    private final GameMap remoteMap;
+    private final Option<GameStatus> status = new Option<>(GameStatus.ONGOING);
 
     public GamePlay() {
-        remoteMap = new Map(false);
-        localMap = new Map(true);
+        localMap = new GameMap(true);
+        remoteMap = new GameMap(false);
     }
 
     public void wonGame() {
-        status.set(Status.WON);
+        status.set(GameStatus.WON);
 
-        System.out.println("WIN WIN WIN");
-        System.out.println("Finitoo");
-        System.out.println("Oposit-map:");
+        System.out.println("Hourray we won the game!!! Pierre is the best!!!");
+        System.out.println("The play is over!!!!");
+        System.out.println("Adversary map:");
         remoteMap.printMap();
 
-        System.out.println(" My-map:");
+        System.out.println("Our map:");
         localMap.printMap();
     }
 
-    public xyz getNextPlaceToHit() {
-        return remoteMap.getNextPointforHit();
+    public Coordinates getNextPlaceToHit() {
+        return remoteMap.getNextPlaceToHit();
     }
 
-    public FireResult hit(xyz coordination) {
-        return localMap.hitOnThisPosition(coordination);
-    }
-
-    public void setFireResult(xyz coordination, FireResult result) {
+    public void setFireResult(Coordinates coordinates, FireResult result) {
         if (result == FireResult.MISS)
-            remoteMap.setDetails(coordination, Details.MISSED_FIRE);
+            remoteMap.setCell(coordinates, GameCell.MISSED_FIRE);
         else
-            remoteMap.setDetails(coordination, Details.SUCCESSFUL_FIRE);
+            remoteMap.setCell(coordinates, GameCell.SUCCESSFUL_FIRE);
     }
 
-    public Status getStatus() {
-        if (!localMap.hasShipLeft())
-            status.set(Status.LOST);
-        return status.get();
-    }
     public boolean localMapShipLeft() {
         return localMap.hasShipLeft();
     }
 
+    public FireResult hit(Coordinates coordinates) {
+        return localMap.hit(coordinates);
+    }
+
+    public GameStatus getStatus() {
+        if (!localMap.hasShipLeft())
+            status.set(GameStatus.LOST);
+        return status.get();
+    }
 }

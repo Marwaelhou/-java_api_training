@@ -1,5 +1,4 @@
-package fr.lernejo.navy_battle.core;
-
+package fr.lernejo.navy_battle.prototypes;
 
 import java.util.Arrays;
 
@@ -10,9 +9,6 @@ public enum FireResult {
 
     FireResult(String res) {
         this.apiString = res;
-    }
-    public String goAPI() {
-        return apiString;
     }
 
     /**
@@ -27,4 +23,7 @@ public enum FireResult {
         return res.get();
     }
 
+    public String toAPI() {
+        return apiString;
+    }
 }

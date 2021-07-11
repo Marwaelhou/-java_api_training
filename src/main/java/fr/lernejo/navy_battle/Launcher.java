@@ -14,7 +14,7 @@ public class Launcher {
             int serverPort = Integer.parseInt(args[0]);
             System.out.println("Starting to listen on port " + serverPort);
 
-            new GameServer().startServer(serverPort, args.length > 1 ? args[1] : null);
+            new Server().startServer(serverPort, args.length > 1 ? args[1] : null);
         } catch (IOException e) {
             e.printStackTrace();
         }
